@@ -167,6 +167,16 @@
       position: absolute;
       inset: 0;
       z-index: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .hero-logo {
+      width: 600px;
+      height: 600px;
+      object-fit: contain;
+      opacity: 0.5;
     }
     .hero-content {
       position: relative;
@@ -791,7 +801,9 @@
 
 <!-- ── HERO ─────────────────────────────────────────────── -->
 <section id="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg">
+    <img src="FenixCycling.cc-main/logo-icon.svg" alt="" class="hero-logo" />
+  </div>
   <div class="container hero-content">
     <div class="hero-eyebrow">Yorba Linda, CA — Est. 2012</div>
     <h1 class="hero-headline">FEN<span class="accent">I</span>X<br>CYCLING</h1>
