@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="version" content="v1.0.0" />
+  <meta name="version" content="v2.0.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <title>Terms & Conditions — FENIX Cycling</title>
-  <meta name="description" content="FENIX Cycling Terms & Conditions. Service policies, deposit requirements, pickup windows, and more." />
+  <meta name="description" content="FENIX Cycling Terms & Conditions. Service policies, deposits, warranty, and liability terms." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -13,14 +14,16 @@
   <style>
     /* ─── TOKENS ─────────────────────────────────────────── */
     :root {
-      --red:     #D42B2B;
-      --red-dim: #9E1F1F;
-      --black:   #0F0F0F;
-      --dark:    #1A1A1A;
-      --mid:     #2A2A2A;
-      --border:  #333333;
-      --light:   #AAAAAA;
-      --white:   #F5F5F5;
+      --red:        #D42B2B;
+      --red-dim:    #B82323;
+      --bronze:     #C97A35;
+      --light-bg:   #FAFAF9;
+      --white:      #FFFFFF;
+      --dark:       #1A1A1A;
+      --gray-md:    #4A4A4A;
+      --gray-light: #6B6B6B;
+      --border:     #E5E5E3;
+      --footer-bg:  #1A1A1A;
       --ff-display: 'Bebas Neue', sans-serif;
       --ff-body:    'Inter', sans-serif;
     }
@@ -29,39 +32,30 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--black);
-      color: var(--white);
+      background: var(--light-bg);
+      color: var(--dark);
       font-family: var(--ff-body);
       font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
     }
     img { max-width: 100%; display: block; }
-    a { color: var(--red); text-decoration: underline; transition: color 0.2s; }
+    a { color: var(--red); text-decoration: none; transition: color 0.2s; }
     a:hover { color: var(--red-dim); }
+    a:focus { outline: 2px solid var(--red); outline-offset: 2px; }
 
     /* ─── UTILITY ────────────────────────────────────────── */
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    .red { color: var(--red); }
-    .section-label {
-      font-family: var(--ff-display);
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      color: var(--red);
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 12px;
-    }
 
     /* ─── NAV ────────────────────────────────────────────── */
     nav {
-      position: sticky;
-      top: 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(15,15,15,0.95);
-      backdrop-filter: blur(10px);
+      background: var(--white);
       border-bottom: 1px solid var(--border);
-      padding: 14px 0;
+      padding: 16px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     .nav-inner {
       display: flex;
@@ -72,6 +66,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      color: inherit;
     }
     .nav-logo-icon {
       width: 36px;
@@ -82,276 +77,324 @@
       font-family: var(--ff-display);
       font-size: 1.5rem;
       letter-spacing: 0.08em;
-      color: var(--white);
+      color: var(--dark);
       line-height: 1;
-      text-decoration: none;
     }
     .nav-logo-text span { color: var(--red); }
-    .nav-logo-text:hover { opacity: 0.8; }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gray-md);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-links a[aria-current="page"] { color: var(--red); }
 
-    /* ─── MAIN CONTENT ───────────────────────────────────── */
+    /* ─── PAGE HEADER ─────────────────────────────────────── */
     .page-header {
-      padding: 80px 0 40px;
+      padding-top: 100px;
+      padding-bottom: 60px;
       border-bottom: 1px solid var(--border);
     }
     .page-header h1 {
       font-family: var(--ff-display);
       font-size: 3rem;
       letter-spacing: 0.08em;
+      color: var(--dark);
       margin-bottom: 12px;
       line-height: 1;
     }
     .page-header p {
-      font-size: 1.1rem;
-      color: var(--light);
+      font-size: 1rem;
+      color: var(--gray-light);
       max-width: 600px;
     }
 
+    /* ─── CONTENT ─────────────────────────────────────────── */
     .content {
       padding: 60px 0;
+      max-width: 900px;
     }
     .content h2 {
       font-family: var(--ff-display);
       font-size: 1.8rem;
       letter-spacing: 0.08em;
-      margin-top: 40px;
+      color: var(--dark);
+      margin-top: 48px;
       margin-bottom: 20px;
-      color: var(--white);
       border-bottom: 2px solid var(--red);
       padding-bottom: 12px;
     }
-    .content h2:first-child {
-      margin-top: 0;
-    }
+    .content h2:first-child { margin-top: 0; }
     .content h3 {
       font-family: var(--ff-display);
       font-size: 1.2rem;
       letter-spacing: 0.08em;
-      margin-top: 30px;
-      margin-bottom: 12px;
       color: var(--red);
+      margin-top: 32px;
+      margin-bottom: 12px;
     }
     .content p {
       margin-bottom: 16px;
-      color: var(--white);
+      color: var(--dark);
       line-height: 1.8;
     }
     .content ul, .content ol {
       margin: 16px 0 16px 24px;
-      color: var(--white);
+      color: var(--dark);
     }
     .content li {
       margin-bottom: 10px;
       line-height: 1.8;
     }
-
     .highlight {
-      background: var(--mid);
-      border-left: 3px solid var(--red);
-      padding: 16px;
-      margin: 20px 0;
+      background: #F9F3F0;
+      border-left: 4px solid var(--bronze);
+      padding: 20px;
+      margin: 24px 0;
       border-radius: 4px;
     }
+    .highlight h3 { color: var(--dark); margin-top: 0; }
+    .highlight p { color: var(--dark); }
 
-    /* ─── FOOTER ─────────────────────────────────────────── */
+    /* ─── FOOTER ──────────────────────────────────────────── */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-      margin-top: 60px;
-      color: var(--light);
-      font-size: 0.9rem;
+      background: var(--footer-bg);
+      color: #B0B0B0;
+      padding: 60px 0 40px;
+      margin-top: 80px;
     }
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 40px;
-      flex-wrap: wrap;
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .footer-contact h3 {
+    .footer-brand { display: flex; flex-direction: column; gap: 12px; }
+    .footer-logo {
       font-family: var(--ff-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      font-weight: 700;
+    }
+    .footer-logo span { color: var(--red); }
+    .footer-tagline {
       font-size: 0.9rem;
+      color: #B0B0B0;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .footer-col h5 {
+      font-family: var(--ff-display);
+      font-size: 0.85rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 8px;
+      color: var(--white);
+      margin-bottom: 16px;
+      font-weight: 700;
     }
-    .footer-contact p {
-      line-height: 1.8;
-    }
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .footer-links a {
+    .footer-col ul { list-style: none; }
+    .footer-col ul li {
       font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: #B0B0B0;
+    }
+    .footer-col ul li a { color: var(--red); font-weight: 600; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-bottom p { font-size: 0.9rem; }
+    .footer-motto {
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
     }
 
+    /* ─── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 768px) {
       .page-header h1 { font-size: 2rem; }
       .content h2 { font-size: 1.4rem; }
-      .footer-content { flex-direction: column; gap: 24px; }
+      .nav-links { gap: 12px; font-size: 0.75rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
-  <!-- NAV -->
-  <nav>
-    <div class="container">
-      <div class="nav-inner">
-        <a href="index.html" class="nav-logo" style="text-decoration: none;">
-          <svg class="nav-logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="48" fill="none" stroke="#D42B2B" stroke-width="2"/>
-            <path d="M 50 15 Q 65 30 70 50 Q 65 70 50 85 Q 35 70 30 50 Q 35 30 50 15" fill="#D42B2B" opacity="0.8"/>
-          </svg>
-          <div class="nav-logo-text">FENIX <span>CYCLING</span></div>
-        </a>
-        <div style="display: flex; gap: 20px; font-size: 0.85rem;">
-          <a href="privacy-policy.html" style="color: var(--light);">Privacy</a>
-          <a href="terms-and-conditions.html" style="color: var(--red);">Terms</a>
-        </div>
-      </div>
-    </div>
-  </nav>
 
-  <!-- PAGE HEADER -->
-  <div class="page-header">
-    <div class="container">
-      <h1>Terms & Conditions</h1>
-      <p>Service policies, deposit requirements, pickup windows, and conditions of service at FENIX Cycling.</p>
-    </div>
-  </div>
-
-  <!-- CONTENT -->
+<!-- NAV -->
+<nav>
   <div class="container">
-    <div class="content">
-
-      <h2>Service Agreement</h2>
-      <p>By bringing your bicycle to FENIX Cycling for service, you agree to the terms and conditions outlined in this document. These terms apply to all repairs, maintenance, and service work performed at our shop located at 23681 E La Palma Ave, Suite B, Yorba Linda, CA 92887.</p>
-
-      <h2>Deposit Policy</h2>
-      <div class="highlight">
-        <h3>50% Deposit Required For:</h3>
-        <ul style="margin-top: 12px;">
-          <li>Repairs requiring special order parts (custom components not in stock)</li>
-          <li>Major repairs (frame damage, suspension overhauls, complete drivetrain replacements)</li>
-          <li>E-bike electrical work or motor service</li>
-        </ul>
-        <p style="margin-top: 16px;"><strong>Deposit amount:</strong> 50% of the estimated repair cost</p>
-        <p style="margin-top: 8px;"><strong>Balance due:</strong> Remaining 50% is due at pickup</p>
-        <p style="margin-top: 8px;"><strong>Purpose:</strong> The deposit ensures we have the funds to order parts immediately and complete your work efficiently. We do not finance repair work.</p>
-      </div>
-
-      <h2>Repair Estimates & Approval</h2>
-      <p>We will provide a detailed written estimate for any repair before work begins, including:</p>
-      <ul>
-        <li>Description of the work to be performed</li>
-        <li>Estimated cost and timeline</li>
-        <li>Cost of parts (if applicable)</li>
-        <li>Labor charges</li>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="48" fill="none" stroke="#D42B2B" stroke-width="2"/>
+          <path d="M 50 15 Q 65 30 70 50 Q 65 70 50 85 Q 35 70 30 50 Q 35 30 50 15" fill="#D42B2B" opacity="0.8"/>
+        </svg>
+        <span class="nav-logo-text">FEN<span>I</span>X CYCLING</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="privacy-policy.html">Privacy</a></li>
+        <li><a href="terms-and-conditions.html" aria-current="page">Terms</a></li>
       </ul>
-      <p>Work will not proceed without your approval. If estimates change due to additional issues discovered during inspection, we will contact you to confirm new pricing before proceeding.</p>
-
-      <h2>Pickup & Pickup Timeline</h2>
-      <div class="highlight">
-        <h3>30-Day Pickup Window</h3>
-        <p>Your bike must be picked up within <strong>30 days of our notification</strong> that it is ready for pickup.</p>
-        <p style="margin-top: 12px;"><strong>How we notify you:</strong></p>
-        <ul style="margin-top: 8px;">
-          <li>Phone call to the number provided at check-in</li>
-          <li>Email to the email address provided</li>
-          <li>Text message (SMS) if you have opted in to receive messages</li>
-        </ul>
-        <p style="margin-top: 12px;"><strong>Storage fees:</strong> After 30 days, a storage fee may apply ($10/week or portion thereof) for continued storage of your bike at our facility.</p>
-        <p style="margin-top: 8px;"><strong>Abandoned bikes:</strong> Bikes left beyond 60 days may be considered abandoned and handled accordingly.</p>
-      </div>
-
-      <h2>Communication & Notifications</h2>
-      <p>FENIX Cycling will keep you informed at every step of your repair:</p>
-      <ul>
-        <li><strong>Inspection complete</strong> – We'll contact you with findings and recommendations</li>
-        <li><strong>Ready to proceed?</strong> – We'll confirm approval before starting work</li>
-        <li><strong>Parts ordered</strong> – If special parts are needed, we'll let you know ETA</li>
-        <li><strong>Ready for pickup</strong> – We'll notify you when your bike is complete and ready to collect</li>
-      </ul>
-      <p>You may opt to receive these notifications by <strong>phone, email, and/or SMS text message</strong>. See our <a href="privacy-policy.html">Privacy Policy</a> for SMS opt-in/opt-out details.</p>
-
-      <h2>Payment & Accepted Methods</h2>
-      <p>We accept:</p>
-      <ul>
-        <li>Cash</li>
-        <li>Credit cards (Visa, Mastercard, American Express)</li>
-        <li>Debit cards</li>
-        <li>Mobile payments (if available)</li>
-      </ul>
-      <p>Payment is due in full upon pickup, unless other arrangements have been agreed to in advance.</p>
-
-      <h2>Liability & Damage Disclaimer</h2>
-      <p>FENIX Cycling is not responsible for:</p>
-      <ul>
-        <li><strong>Personal items left on bikes</strong> – Lights, computers, water bottles, bags, phone mounts, and other accessories should be removed before leaving your bike. The shop is not responsible for theft or damage to personal items left on bicycles.</li>
-        <li><strong>Pre-existing damage</strong> – Hidden or pre-existing damage discovered during service will be discussed with you before repair work proceeds</li>
-        <li><strong>Normal wear and tear</strong> – Some components may wear or fail beyond our control</li>
-        <li><strong>Bikes left beyond 60 days</strong> – Abandoned bikes may be disposed of or repurposed</li>
-      </ul>
-
-      <h2>Warranty on Repairs</h2>
-      <p>We stand behind our work. All parts installed during repair come with manufacturer warranties (typically 1–5 years depending on the part). Our labor warranty covers defects in workmanship for <strong>30 days after pickup</strong>. If an issue arises from our work within 30 days, bring your bike back and we will address it.</p>
-      <p>Warranty does not cover:</p>
-      <ul>
-        <li>Damage from crashes, accidents, or misuse</li>
-        <li>Failure to perform routine maintenance (cleaning, lubrication)</li>
-        <li>Natural wear and tear on consumable parts (brake pads, chain, cables)</li>
-      </ul>
-
-      <h2>Service Area</h2>
-      <p>FENIX Cycling primarily serves Yorba Linda, Corona, Anaheim Hills, and surrounding communities in Orange County, California. We welcome riders from all areas, and special service (like home pickup & delivery for major repairs) is available upon request and approval.</p>
-
-      <h2>Refund & Cancellation Policy</h2>
-      <p><strong>Before work begins:</strong> If you decide to cancel before work starts, your deposit (if paid) will be refunded in full minus any costs incurred (parts ordered, administrative fees).</p>
-      <p><strong>After work begins:</strong> Once repair work has started, cancellation is not available. Your deposit is non-refundable.</p>
-      <p><strong>Defective work:</strong> If we determine our work is faulty, we will redo the work at no charge within 30 days of pickup.</p>
-
-      <h2>Limitation of Liability</h2>
-      <p>FENIX Cycling's liability for any repair work is limited to the total cost of the repair. We do not accept liability for indirect, incidental, or consequential damages (such as loss of use or inconvenience).</p>
-
-      <h2>Dispute Resolution</h2>
-      <p>In the event of a dispute regarding service, billing, or repair quality, we encourage you to contact us directly at:</p>
-      <ul>
-        <li><strong>Phone:</strong> <a href="tel:714-333-0401">714-333-0401</a></li>
-        <li><strong>Email:</strong> <a href="mailto:service@fenixcycling.cc">service@fenixcycling.cc</a></li>
-      </ul>
-      <p>We will work with you in good faith to resolve any concerns. If a resolution cannot be reached, disputes may be pursued through small claims court or other legal remedies available.</p>
-
-      <h2>Changes to Terms</h2>
-      <p>We reserve the right to update these terms and conditions from time to time. Changes will be effective when posted on our website. Your continued use of our service indicates acceptance of updated terms.</p>
-
-      <h2>Acknowledgment of Terms</h2>
-      <p>By dropping off your bicycle at FENIX Cycling, you acknowledge that you have read, understood, and agree to these terms and conditions. A copy of this policy is available on-site and online at <strong>fenixcycling.cc/terms-and-conditions.html</strong>.</p>
-
-      <p style="margin-top: 60px; color: var(--light); font-size: 0.9rem;"><strong>Last updated:</strong> August 2026</p>
-
     </div>
   </div>
+</nav>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-contact">
-          <h3>FENIX Cycling</h3>
-          <p>23681 E La Palma Ave, Suite B<br>Yorba Linda, CA 92887<br><a href="tel:714-333-0401">714-333-0401</a></p>
-        </div>
-        <div class="footer-links">
-          <a href="index.html">Home</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms-and-conditions.html">Terms & Conditions</a>
-        </div>
-      </div>
-      <p style="margin-top: 40px; color: var(--light); border-top: 1px solid var(--border); padding-top: 24px;">We ride. We wrench. We care. © 2012–2026 FENIX Cycling</p>
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <h1>Terms & Conditions</h1>
+    <p>Service policies, deposit requirements, pickup windows, and conditions of service at FENIX Cycling.</p>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+  <div class="content">
+    <h2>Service Agreement</h2>
+    <p>By bringing your bicycle to FENIX Cycling for service, you agree to these terms and conditions. They apply to all repairs, maintenance, and service work performed at our shop located at 23681 E La Palma Ave, Suite B, Yorba Linda, CA 92887.</p>
+
+    <h2>Deposit Policy</h2>
+    <div class="highlight">
+      <h3>50% Deposit Required For:</h3>
+      <ul style="margin-top: 12px;">
+        <li>Repairs requiring special order parts (custom components not in stock)</li>
+        <li>Major repairs (frame damage, suspension overhauls, complete drivetrain replacements)</li>
+        <li>E-bike electrical work or motor service</li>
+      </ul>
+      <p style="margin-top: 16px;"><strong>Deposit amount:</strong> 50% of the estimated repair cost</p>
+      <p><strong>Balance due:</strong> Remaining 50% is due at pickup</p>
+      <p><strong>Purpose:</strong> The deposit ensures we can order parts immediately and complete your work efficiently.</p>
     </div>
-  </footer>
+
+    <h2>Repair Estimates & Approval</h2>
+    <p>We provide detailed written estimates for any repair before work begins, including description of work, estimated cost, timeline, parts cost, and labor charges. Work will not proceed without your approval.</p>
+
+    <h2>Pickup & Pickup Timeline</h2>
+    <div class="highlight">
+      <h3>30-Day Pickup Window</h3>
+      <p>Your bike must be picked up within <strong>30 days of our notification</strong> that it is ready.</p>
+      <p style="margin-top: 12px;"><strong>How we notify you:</strong></p>
+      <ul style="margin-top: 8px;">
+        <li>Phone call to the number provided at check-in</li>
+        <li>Email to the address provided</li>
+        <li>Text message (SMS) if you have opted in</li>
+      </ul>
+      <p style="margin-top: 12px;"><strong>Storage fees:</strong> After 30 days, a storage fee of $10/week may apply for continued storage.</p>
+      <p><strong>Abandoned bikes:</strong> Bikes left beyond 60 days may be considered abandoned and handled accordingly.</p>
+    </div>
+
+    <h2>Communication & Notifications</h2>
+    <p>We keep you informed at every step of your repair:</p>
+    <ul>
+      <li><strong>Inspection complete</strong> – Contact you with findings and recommendations</li>
+      <li><strong>Ready to proceed?</strong> – Confirm approval before starting work</li>
+      <li><strong>Parts ordered</strong> – Let you know ETA if special parts are needed</li>
+      <li><strong>Ready for pickup</strong> – Notify you when complete and ready to collect</li>
+    </ul>
+
+    <h2>Payment & Accepted Methods</h2>
+    <p>We accept cash, credit cards (Visa, Mastercard, American Express), debit cards, and mobile payments. Full payment is due upon pickup, unless other arrangements have been agreed to in advance.</p>
+
+    <h2>Liability & Damage Disclaimer</h2>
+    <p>FENIX Cycling is not responsible for:</p>
+    <ul>
+      <li><strong>Personal items left on bikes</strong> – Remove lights, computers, water bottles, bags, and other accessories. We are not responsible for theft or damage to items left on bicycles.</li>
+      <li><strong>Pre-existing damage</strong> – Hidden or pre-existing damage discovered during service will be discussed with you before proceeding.</li>
+      <li><strong>Normal wear and tear</strong> – Some components may wear beyond our control.</li>
+      <li><strong>Bikes left beyond 60 days</strong> – Abandoned bikes may be disposed of or repurposed.</li>
+    </ul>
+
+    <h2>Warranty on Repairs</h2>
+    <p>We stand behind our work. All parts installed come with manufacturer warranties (typically 1–5 years). Our labor warranty covers defects in workmanship for <strong>30 days after pickup</strong>. If an issue arises from our work within 30 days, bring your bike back and we will address it.</p>
+    <p>Warranty does not cover:</p>
+    <ul>
+      <li>Damage from crashes, accidents, or misuse</li>
+      <li>Failure to perform routine maintenance (cleaning, lubrication)</li>
+      <li>Natural wear and tear on consumable parts (brake pads, chain, cables)</li>
+    </ul>
+
+    <h2>Service Area</h2>
+    <p>FENIX Cycling primarily serves Yorba Linda, Corona, Anaheim Hills, and surrounding Orange County communities. We welcome riders from all areas, and special service (home pickup & delivery for major repairs) is available upon request and approval.</p>
+
+    <h2>Refund & Cancellation Policy</h2>
+    <p><strong>Before work begins:</strong> If you cancel before work starts, your deposit (if paid) will be refunded in full minus any costs incurred (parts ordered, administrative fees).</p>
+    <p><strong>After work begins:</strong> Once repair work has started, cancellation is not available. Your deposit is non-refundable.</p>
+    <p><strong>Defective work:</strong> If we determine our work is faulty, we will redo it at no charge within 30 days of pickup.</p>
+
+    <h2>Limitation of Liability</h2>
+    <p>FENIX Cycling's liability for any repair work is limited to the total cost of the repair. We do not accept liability for indirect, incidental, or consequential damages (such as loss of use or inconvenience).</p>
+
+    <h2>Dispute Resolution</h2>
+    <p>In the event of a dispute regarding service, billing, or repair quality, please contact us directly:</p>
+    <ul>
+      <li><strong>Text:</strong> <a href="sms:+17143330401">(714) 333 0401</a></li>
+      <li><strong>Call:</strong> <a href="tel:+17146922502">(714) 692-2502</a></li>
+      <li><strong>Email:</strong> <a href="mailto:Service@fenixcycling.cc">Service@fenixcycling.cc</a></li>
+    </ul>
+    <p>We will work with you in good faith to resolve any concerns. If a resolution cannot be reached, disputes may be pursued through small claims court or other legal remedies available.</p>
+
+    <h2>Changes to Terms</h2>
+    <p>We reserve the right to update these terms and conditions. Changes are effective when posted on our website. Your continued use of our service indicates acceptance of updated terms.</p>
+
+    <h2>Acknowledgment of Terms</h2>
+    <p>By dropping off your bicycle at FENIX Cycling, you acknowledge that you have read, understood, and agree to these terms and conditions. A copy of this policy is available on-site and online.</p>
+
+    <p style="margin-top: 60px; color: var(--gray-light); font-size: 0.9rem;"><strong>Last updated:</strong> October 2026</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">FEN<span>I</span>X CYCLING</div>
+        <div class="footer-tagline">Honest. Reliable. Passionate.</div>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact Us</h5>
+        <ul>
+          <li style="font-weight: 600; color: var(--red); margin-bottom: 12px;">Bryant Ranch Center</li>
+          <li><a href="https://maps.google.com/?q=23681+E+La+Palma+Ave+Suite+B+Yorba+Linda+CA+92887" style="color: inherit; text-decoration: none;" target="_blank">23681 E La Palma Ave B<br>Yorba Linda, CA 92887</a></li>
+          <li style="margin-top: 16px; font-size: 0.85rem;">Text at <a href="sms:+17143330401" style="color: var(--red); font-weight: 600;">(714) 333 0401</a></li>
+          <li style="font-size: 0.85rem;">Call at <a href="tel:+17146922502" style="color: var(--red); font-weight: 600;">(714) 692-2502</a></li>
+          <li style="font-size: 0.85rem;">Email us at <a href="mailto:Service@fenixcycling.cc" style="color: var(--red); font-weight: 600;">Service@fenixcycling.cc</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 FENIX Cycling. All rights reserved.</p>
+      <div class="footer-motto">Ride More. Worry Less. We've Got Your Back.</div>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>

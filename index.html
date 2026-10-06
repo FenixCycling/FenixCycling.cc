@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="version" content="v1.0.0" />
-  <meta name="deployment-date" content="07-08-2026" />
+  <meta name="version" content="v2.0.0" />
+  <meta name="deployment-date" content="redesign-2026" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <title>FENIX Cycling — Yorba Linda's Bike Shop</title>
   <meta name="description" content="Honest bike repair, quality workmanship, and fair pricing in Yorba Linda, CA. Serving riders from Riverside to the OC coast since 2012." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,14 +15,16 @@
   <style>
     /* ─── TOKENS ─────────────────────────────────────────── */
     :root {
-      --red:     #D42B2B;
-      --red-dim: #9E1F1F;
-      --black:   #0F0F0F;
-      --dark:    #1A1A1A;
-      --mid:     #2A2A2A;
-      --border:  #333333;
-      --light:   #AAAAAA;
-      --white:   #F5F5F5;
+      --red:        #D42B2B;
+      --red-dim:    #B82323;
+      --bronze:     #C97A35;
+      --light-bg:   #FAFAF9;
+      --white:      #FFFFFF;
+      --dark:       #1A1A1A;
+      --gray-md:    #4A4A4A;
+      --gray-light: #6B6B6B;
+      --border:     #E5E5E3;
+      --footer-bg:  #1A1A1A;
       --ff-display: 'Bebas Neue', sans-serif;
       --ff-body:    'Inter', sans-serif;
     }
@@ -30,8 +33,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--black);
-      color: var(--white);
+      background: var(--light-bg);
+      color: var(--dark);
       font-family: var(--ff-body);
       font-size: 16px;
       line-height: 1.6;
@@ -43,10 +46,11 @@
     /* ─── UTILITY ────────────────────────────────────────── */
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
     .red { color: var(--red); }
+    .bronze { color: var(--bronze); }
     .section-label {
       font-family: var(--ff-display);
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
       color: var(--red);
       text-transform: uppercase;
       display: block;
@@ -58,10 +62,10 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(15,15,15,0.92);
-      backdrop-filter: blur(10px);
+      background: var(--white);
       border-bottom: 1px solid var(--border);
-      padding: 14px 0;
+      padding: 16px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     .nav-inner {
       display: flex;
@@ -82,7 +86,7 @@
       font-family: var(--ff-display);
       font-size: 1.5rem;
       letter-spacing: 0.08em;
-      color: var(--white);
+      color: var(--dark);
       line-height: 1;
     }
     .nav-logo-text span { color: var(--red); }
@@ -91,7 +95,7 @@
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--light);
+      color: var(--gray-light);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -103,39 +107,25 @@
       align-items: center;
     }
     .nav-links a {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--light);
+      color: var(--gray-md);
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover { color: var(--dark); }
     .nav-cta {
       background: var(--red);
       color: var(--white) !important;
-      padding: 8px 20px;
-      font-size: 0.8rem !important;
+      padding: 10px 24px;
+      font-size: 0.9rem !important;
       font-weight: 700 !important;
-      letter-spacing: 0.1em !important;
-      border-radius: 2px;
+      letter-spacing: 0.05em !important;
+      border-radius: 4px;
       transition: background 0.2s !important;
     }
-    .nav-cta:hover { background: var(--red-dim) !important; color: var(--white) !important; }
-    #lang-toggle {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--light);
-      font-family: var(--ff-body);
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      padding: 6px 12px;
-      border-radius: 2px;
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    #lang-toggle:hover { border-color: var(--white); color: var(--white); }
+    .nav-cta:hover { background: var(--red-dim) !important; }
 
     /* ─── HERO ───────────────────────────────────────────── */
     #hero {
@@ -145,32 +135,12 @@
       align-items: center;
       overflow: hidden;
       padding-top: 80px;
+      background: linear-gradient(135deg, #FAFAF9 0%, #F5F3F0 100%);
     }
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('logo-icon.svg');
-      background-size: 60%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
       z-index: 0;
-    }
-    .hero-bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(135deg, rgba(212,43,43,0.12) 0%, transparent 50%),
-        linear-gradient(to bottom, rgba(15,15,15,0.4) 0%, rgba(15,15,15,0.9) 100%);
-      z-index: 1;
-      pointer-events: none;
-    }
-    #ember-canvas {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
     }
     .hero-content {
       position: relative;
@@ -182,31 +152,21 @@
       align-items: center;
     }
     .hero-eyebrow {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.25em;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: #FFA500;
-      margin-bottom: 20px;
-      margin-top: 4px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .hero-eyebrow::before,
-    .hero-eyebrow::after {
-      content: '';
+      color: var(--gray-light);
+      margin-bottom: 24px;
+      margin-top: 0;
       display: block;
-      width: 32px;
-      height: 2px;
-      background: #FFA500;
     }
     .hero-headline {
       font-family: var(--ff-display);
-      font-size: clamp(4rem, 10vw, 9rem);
+      font-size: clamp(3.5rem, 10vw, 5.5rem);
       line-height: 0.9;
-      letter-spacing: 0.02em;
-      color: var(--white);
+      letter-spacing: 0.06em;
+      color: var(--dark);
       margin-bottom: 8px;
     }
     .hero-headline .accent { color: var(--red); }
@@ -214,18 +174,18 @@
       font-family: var(--ff-display);
       font-size: clamp(1.2rem, 3vw, 2rem);
       letter-spacing: 0.15em;
-      color: var(--light);
+      color: var(--gray-md);
       margin-bottom: 32px;
     }
     .hero-tagline {
       font-size: 1.05rem;
-      color: var(--light);
+      color: var(--gray-md);
       max-width: 560px;
       margin-bottom: 48px;
       line-height: 1.7;
       text-align: center;
     }
-    .hero-tagline strong { color: var(--white); }
+    .hero-tagline strong { color: var(--dark); }
     .hero-actions {
       display: flex;
       gap: 16px;
@@ -235,27 +195,31 @@
     .btn-primary {
       background: var(--red);
       color: var(--white);
-      padding: 14px 32px;
+      padding: 14px 36px;
       font-family: var(--ff-display);
       font-size: 1.1rem;
       letter-spacing: 0.12em;
-      border-radius: 2px;
-      transition: background 0.2s, transform 0.15s;
+      border-radius: 4px;
+      transition: background 0.2s;
       display: inline-block;
+      border: none;
+      cursor: pointer;
     }
-    .btn-primary:hover { background: var(--red-dim); transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--red-dim); }
     .btn-secondary {
       border: 1px solid var(--border);
-      color: var(--light);
-      padding: 14px 32px;
+      color: var(--dark);
+      padding: 14px 36px;
       font-family: var(--ff-display);
       font-size: 1.1rem;
       letter-spacing: 0.12em;
-      border-radius: 2px;
+      border-radius: 4px;
       transition: border-color 0.2s, color 0.2s;
       display: inline-block;
+      background: transparent;
+      cursor: pointer;
     }
-    .btn-secondary:hover { border-color: var(--white); color: var(--white); }
+    .btn-secondary:hover { border-color: var(--dark); color: var(--dark); }
     .hero-stats {
       display: flex;
       gap: 48px;
@@ -270,22 +234,23 @@
       font-family: var(--ff-display);
       font-size: 2.8rem;
       line-height: 1;
-      color: var(--white);
+      color: var(--dark);
     }
     .stat-num span { color: var(--red); }
     .stat-label {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--light);
+      color: var(--gray-light);
       margin-top: 4px;
     }
 
     /* ─── TRUST BAR ──────────────────────────────────────── */
     #trust {
-      background: transparent;
+      background: var(--white);
       border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border);
       position: relative;
       z-index: 15;
       padding: 40px 0;
@@ -302,11 +267,11 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--light);
+      color: var(--gray-md);
       white-space: nowrap;
     }
     .trust-icon { color: var(--red); font-size: 1rem; }
@@ -316,31 +281,33 @@
       position: relative;
       padding: 100px 0;
       text-align: center;
-      overflow: hidden;
-      background-image: url('Man_holding_bike_frame.jpeg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-    #services::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      z-index: 1;
-      pointer-events: none;
+      background: var(--light-bg);
     }
     .section-header {
       position: relative;
       z-index: 2;
       margin-bottom: 60px;
     }
+    .section-header h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.06em;
+      color: var(--dark);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      font-size: 1rem;
+      color: var(--gray-md);
+      max-width: 680px;
+      margin: 0 auto;
+    }
     .services-grid {
       position: relative;
       z-index: 2;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
+      gap: 24px;
       margin-left: auto;
       margin-right: auto;
       max-width: 1100px;
@@ -352,39 +319,36 @@
       .services-grid { grid-template-columns: 1fr; }
     }
     .service-card {
-      background: rgba(26, 26, 26, 0.5);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--border);
       padding: 36px 32px;
       position: relative;
-      transition: background 0.2s;
+      transition: all 0.2s;
       cursor: default;
+      border-radius: 4px;
     }
-    .service-card:hover { background: rgba(42, 42, 42, 0.5); }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px;
-      height: 0;
-      background: var(--red);
-      transition: height 0.3s;
+    .service-card:hover {
+      border-left-color: var(--red);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-    .service-card:hover::before { height: 100%; }
     .service-icon {
       width: 44px;
       height: 44px;
       margin-bottom: 20px;
-      color: var(--red);
+      color: var(--bronze);
+      stroke: currentColor;
     }
     .service-name {
       font-family: var(--ff-display);
       font-size: 1.6rem;
       letter-spacing: 0.05em;
-      color: var(--white);
+      color: var(--dark);
       margin-bottom: 10px;
     }
     .service-desc {
       font-size: 0.9rem;
-      color: var(--light);
+      color: var(--gray-md);
       line-height: 1.65;
       margin-bottom: 20px;
     }
@@ -396,7 +360,7 @@
     }
     .service-list li {
       font-size: 0.82rem;
-      color: var(--light);
+      color: var(--gray-md);
       display: flex;
       align-items: flex-start;
       gap: 8px;
@@ -411,7 +375,7 @@
     /* ─── E-BIKE FEATURE ─────────────────────────────────── */
     #ebike {
       padding: 80px 0;
-      background: var(--dark);
+      background: var(--white);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       text-align: center;
@@ -436,9 +400,23 @@
       font-family: var(--ff-display);
       font-size: 0.85rem;
       letter-spacing: 0.15em;
-      padding: 6px 14px;
+      padding: 8px 16px;
       margin-bottom: 20px;
-      border-radius: 2px;
+      border-radius: 4px;
+    }
+    .ebike-content h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.06em;
+      color: var(--dark);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .ebike-content > p {
+      font-size: 1rem;
+      color: var(--gray-md);
+      max-width: 680px;
+      margin: 0 auto;
     }
     .ebike-checklist {
       list-style: none;
@@ -455,7 +433,7 @@
       gap: 12px;
       font-size: 0.95rem;
       font-weight: 500;
-      color: var(--white);
+      color: var(--dark);
     }
     .check-dot {
       width: 8px;
@@ -466,31 +444,34 @@
     }
     .ebike-visual {
       position: relative;
-      background: var(--mid);
+      background: var(--light-bg);
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 48px 40px;
+      padding: 60px 40px;
       text-align: center;
+      width: 100%;
+      max-width: 480px;
     }
     .ebike-visual-text {
       font-family: var(--ff-display);
       font-size: 1rem;
       letter-spacing: 0.15em;
-      color: var(--light);
+      color: var(--gray-light);
       text-transform: uppercase;
     }
 
-    /* ─── REVIEW CAROUSELS ───────────────────────────────── */
+    /* ─── REVIEWS ───────────────────────────────────────── */
     .review-carousel {
       width: 100%;
       max-width: 100%;
       position: relative;
       overflow: hidden;
       border-radius: 4px;
+      margin-top: 48px;
     }
     .review-track {
       display: flex;
-      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
       width: 100%;
     }
     .review-card {
@@ -498,10 +479,10 @@
       max-width: 100%;
       width: 100%;
       box-sizing: border-box;
-      background: var(--mid);
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 24px 20px;
+      padding: 28px 24px;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -517,10 +498,11 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.72rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
+      color: var(--gray-md);
     }
     .platform-dot {
       width: 8px; height: 8px;
@@ -535,23 +517,23 @@
       letter-spacing: 2px;
     }
     .review-text {
-      font-size: 0.92rem;
-      color: var(--light);
+      font-size: 0.95rem;
+      color: var(--gray-md);
       line-height: 1.75;
       font-style: italic;
     }
     .review-highlight {
-      color: #ffaa00;
-      font-weight: 700;
+      color: var(--dark);
+      font-weight: 600;
       font-style: normal;
     }
-    .review-text::before { content: '\201C'; color: var(--red); font-size: 1.4rem; line-height: 0; vertical-align: -0.3em; margin-right: 2px; font-style: normal; }
-    .review-text::after  { content: '\201D'; color: var(--red); font-size: 1.4rem; line-height: 0; vertical-align: -0.3em; margin-left: 2px;  font-style: normal; }
+    .review-text::before { content: '\201C'; color: var(--red); font-size: 1.4rem; line-height: 0; vertical-align: -0.3em; margin-right: 4px; font-style: normal; }
+    .review-text::after  { content: '\201D'; color: var(--red); font-size: 1.4rem; line-height: 0; vertical-align: -0.3em; margin-left: 4px;  font-style: normal; }
     .review-author {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      color: var(--white);
-      letter-spacing: 0.04em;
+      color: var(--dark);
+      letter-spacing: 0.02em;
     }
     .review-dots {
       display: flex;
@@ -576,12 +558,13 @@
       padding: 100px 0;
       text-align: center;
       overflow: hidden;
+      background: var(--light-bg);
     }
     #about::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.65);
+      background: linear-gradient(to bottom, rgba(250,250,249,0.3) 0%, rgba(250,250,249,0.7) 100%);
       z-index: 1;
       pointer-events: none;
     }
@@ -602,24 +585,37 @@
       align-items: center;
       gap: 60px;
     }
+    .about-body {
+      max-width: 720px;
+    }
+    .about-body h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.06em;
+      color: var(--dark);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
     .about-body p {
-      color: var(--light);
+      color: var(--gray-md);
       font-size: 1rem;
       line-height: 1.8;
       margin-bottom: 20px;
     }
-    .about-body p strong { color: var(--white); font-weight: 600; }
+    .about-body p strong { color: var(--dark); font-weight: 600; }
     .about-slogan {
       margin-top: 36px;
-      padding: 24px 28px;
-      border-left: 3px solid var(--red);
-      background: var(--dark);
+      padding: 28px 32px;
+      border-left: 4px solid var(--red);
+      background: var(--white);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .about-slogan p {
       font-family: var(--ff-display);
       font-size: 1.4rem;
       letter-spacing: 0.06em;
-      color: var(--white);
+      color: var(--dark);
       line-height: 1.3;
       margin: 0;
     }
@@ -640,13 +636,13 @@
     .cta-text h2 {
       font-family: var(--ff-display);
       font-size: clamp(2rem, 4vw, 3.5rem);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
       color: var(--white);
       line-height: 0.95;
       margin-bottom: 8px;
     }
     .cta-text p {
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.85);
       font-size: 0.95rem;
     }
     .btn-white {
@@ -656,17 +652,19 @@
       font-family: var(--ff-display);
       font-size: 1.1rem;
       letter-spacing: 0.1em;
-      border-radius: 2px;
+      border-radius: 4px;
       font-weight: 700;
       transition: opacity 0.2s;
       display: inline-block;
       white-space: nowrap;
+      border: none;
+      cursor: pointer;
     }
     .btn-white:hover { opacity: 0.9; }
 
     /* ─── FOOTER ─────────────────────────────────────────── */
     footer {
-      background: var(--black);
+      background: var(--footer-bg);
       border-top: 1px solid var(--border);
       padding: 48px 0 24px;
     }
@@ -694,22 +692,22 @@
     }
     .footer-brand .footer-logo span { color: var(--red); }
     .footer-tagline {
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--light);
+      color: #999999;
     }
     .footer-col h5 {
       font-family: var(--ff-display);
-      font-size: 0.9rem;
-      letter-spacing: 0.15em;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
       color: var(--white);
       margin-bottom: 16px;
     }
     .footer-col ul { list-style: none; }
     .footer-col ul li {
-      font-size: 0.85rem;
-      color: var(--light);
+      font-size: 0.9rem;
+      color: var(--gray-light);
       margin-bottom: 8px;
     }
     .footer-col ul li a:hover { color: var(--white); }
@@ -724,14 +722,14 @@
     }
     .footer-bottom p {
       font-size: 0.78rem;
-      color: var(--border);
+      color: #B3B3B3;
       letter-spacing: 0.05em;
     }
     .footer-motto {
       font-family: var(--ff-display);
-      font-size: 0.85rem;
-      letter-spacing: 0.2em;
-      color: var(--red);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      color: #FF6B6B;
       text-transform: uppercase;
     }
 
@@ -742,178 +740,6 @@
       .about-inner { grid-template-columns: 1fr; }
       .cta-inner { flex-direction: column; text-align: center; }
       .trust-inner { gap: 24px; }
-    }
-
-    /* ─── FIRE TEXT ──────────────────────────────────────── */
-    .fire-text-wrap {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 16px;
-      font-family: var(--ff-display);
-      font-size: clamp(3.5rem, 9vw, 8rem);
-      letter-spacing: 0.06em;
-      line-height: 1;
-    }
-    .fire-letter {
-      display: inline-block;
-      background: linear-gradient(
-        to top,
-        #fff700 0%,
-        #ffaa00 15%,
-        #ff6600 35%,
-        #ff2200 60%,
-        #cc0000 80%,
-        #880000 100%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: letterFlicker var(--dur) var(--delay) cubic-bezier(0.43, 0.13, 0.23, 0.96) infinite;
-    }
-    .fire-letter.space {
-      display: inline-block;
-      width: 0.35em;
-      -webkit-text-fill-color: transparent;
-    }
-    .fire-text-wrap::before {
-      content: '';
-      position: absolute;
-      bottom: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 400px;
-      pointer-events: none;
-      z-index: 10;
-      background-image:
-        radial-gradient(circle, #ffaa00 2px, transparent 2px),
-        radial-gradient(circle, #ff8800 1.5px, transparent 1.5px),
-        radial-gradient(circle, #ffcc00 1px, transparent 1px),
-        radial-gradient(circle, #ff9900 2.5px, transparent 2.5px),
-        radial-gradient(circle, #ffbb00 1.8px, transparent 1.8px),
-        radial-gradient(circle, #ff7700 2px, transparent 2px),
-        radial-gradient(circle, #ffaa00 2px, transparent 2px),
-        radial-gradient(circle, #ff8800 1.5px, transparent 1.5px),
-        radial-gradient(circle, #ffcc00 1px, transparent 1px),
-        radial-gradient(circle, #ff9900 2.5px, transparent 2.5px);
-      background-size:
-        80px 120px,
-        100px 150px,
-        120px 180px,
-        95px 140px,
-        110px 160px,
-        90px 130px,
-        70px 110px,
-        105px 160px,
-        115px 170px,
-        85px 135px;
-      background-position:
-        0 0,
-        20px 30px,
-        40px 60px,
-        10px 20px,
-        50px 80px,
-        25px 45px,
-        35px 55px,
-        15px 25px,
-        55px 90px,
-        45px 70px;
-      animation:
-        rise1 6s linear infinite,
-        rise2 7s linear infinite 1s,
-        rise3 5.5s linear infinite 2s,
-        rise4 6.5s linear infinite 0.5s,
-        rise5 7.5s linear infinite 1.5s,
-        rise6 6s linear infinite 2.5s,
-        rise7 6.2s linear infinite 0.8s,
-        rise8 7.2s linear infinite 1.2s,
-        rise9 5.8s linear infinite 2.2s,
-        rise10 6.8s linear infinite 0.3s;
-      opacity: 0.7;
-    }
-    @keyframes rise1 { 0% { transform: translateX(-50%) translateY(400px); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateX(-50%) translateY(-100px); opacity: 0; } }
-    @keyframes rise2 { 0% { transform: translateX(-50%) translateY(400px); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateX(-50%) translateY(-100px); opacity: 0; } }
-    @keyframes rise3 { 0% { transform: translateX(-50%) translateY(400px); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateX(-50%) translateY(-100px); opacity: 0; } }
-    @keyframes rise4 { 0% { transform: translateX(-50%) translateY(400px); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateX(-50%) translateY(-100px); opacity: 0; } }
-    @keyframes rise5 { 0% { transform: translateX(-50%) translateY(400px); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateX(-50%) translateY(-100px); opacity: 0; } }
-    @keyframes rise6 { 0% { transform: translateX(-50%) translateY(400px); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateX(-50%) translateY(-100px); opacity: 0; } }
-    @keyframes rise7 { 0% { transform: translateX(-50%) translateY(400px); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateX(-50%) translateY(-100px); opacity: 0; } }
-    @keyframes rise8 { 0% { transform: translateX(-50%) translateY(400px); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateX(-50%) translateY(-100px); opacity: 0; } }
-    @keyframes rise9 { 0% { transform: translateX(-50%) translateY(400px); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateX(-50%) translateY(-100px); opacity: 0; } }
-    @keyframes rise10 { 0% { transform: translateX(-50%) translateY(400px); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.7; } 100% { transform: translateX(-50%) translateY(-100px); opacity: 0; } }
-    @keyframes letterFlicker {
-      0%   {
-        filter: drop-shadow(0 0 8px rgba(255,100,0,0.8)) drop-shadow(0 0 18px rgba(255,50,0,0.5)) drop-shadow(0 0 35px rgba(220,20,0,0.3));
-        opacity: 0.95;
-        transform: scaleY(1) scaleX(1) skewX(0deg);
-        text-shadow: 0 0 20px rgba(255,200,0,0.6), 0 0 40px rgba(255,100,0,0.4), 0 0 60px rgba(220,50,0,0.2);
-      }
-      5%   {
-        filter: drop-shadow(0 0 4px rgba(255,80,0,0.6)) drop-shadow(0 0 10px rgba(200,40,0,0.3));
-        opacity: 0.82;
-        transform: scaleY(0.98) scaleX(0.99) skewX(0.8deg);
-        text-shadow: 0 0 12px rgba(255,120,0,0.4), 0 0 24px rgba(220,50,0,0.2);
-      }
-      12%  {
-        filter: drop-shadow(0 0 14px rgba(255,180,0,1)) drop-shadow(0 0 32px rgba(255,100,0,0.9)) drop-shadow(0 0 50px rgba(255,60,0,0.5));
-        opacity: 1;
-        transform: scaleY(1.05) scaleX(1.02) skewX(-1.2deg);
-        text-shadow: 0 0 28px rgba(255,220,0,0.8), 0 0 56px rgba(255,120,0,0.6), 0 0 80px rgba(220,60,0,0.3);
-      }
-      18%  {
-        filter: drop-shadow(0 0 6px rgba(255,110,0,0.7)) drop-shadow(0 0 14px rgba(220,50,0,0.4));
-        opacity: 0.89;
-        transform: scaleY(1.01) scaleX(1.01) skewX(0.5deg);
-        text-shadow: 0 0 16px rgba(255,140,0,0.5), 0 0 32px rgba(220,60,0,0.3);
-      }
-      26%  {
-        filter: drop-shadow(0 0 3px rgba(255,70,0,0.5)) drop-shadow(0 0 8px rgba(200,30,0,0.3));
-        opacity: 0.78;
-        transform: scaleY(0.97) scaleX(0.98) skewX(1.1deg);
-        text-shadow: 0 0 10px rgba(255,100,0,0.3), 0 0 20px rgba(200,40,0,0.15);
-      }
-      35%  {
-        filter: drop-shadow(0 0 16px rgba(255,190,0,1)) drop-shadow(0 0 38px rgba(255,110,0,0.9)) drop-shadow(0 0 60px rgba(255,70,0,0.6));
-        opacity: 0.98;
-        transform: scaleY(1.04) scaleX(1.03) skewX(-0.8deg);
-        text-shadow: 0 0 32px rgba(255,240,0,0.8), 0 0 64px rgba(255,130,0,0.6), 0 0 90px rgba(230,70,0,0.4);
-      }
-      44%  {
-        filter: drop-shadow(0 0 7px rgba(255,130,0,0.75)) drop-shadow(0 0 16px rgba(230,60,0,0.5));
-        opacity: 0.93;
-        transform: scaleY(1.02) scaleX(1) skewX(-0.3deg);
-        text-shadow: 0 0 18px rgba(255,160,0,0.55), 0 0 36px rgba(230,70,0,0.35);
-      }
-      54%  {
-        filter: drop-shadow(0 0 11px rgba(255,160,0,0.95)) drop-shadow(0 0 28px rgba(255,90,0,0.8)) drop-shadow(0 0 45px rgba(220,50,0,0.4));
-        opacity: 0.97;
-        transform: scaleY(1.03) scaleX(1.02) skewX(0.7deg);
-        text-shadow: 0 0 26px rgba(255,200,0,0.7), 0 0 52px rgba(255,110,0,0.5), 0 0 75px rgba(220,60,0,0.3);
-      }
-      63%  {
-        filter: drop-shadow(0 0 5px rgba(255,100,0,0.65)) drop-shadow(0 0 12px rgba(210,45,0,0.4));
-        opacity: 0.85;
-        transform: scaleY(0.99) scaleX(0.99) skewX(0.9deg);
-        text-shadow: 0 0 14px rgba(255,120,0,0.45), 0 0 28px rgba(210,50,0,0.25);
-      }
-      73%  {
-        filter: drop-shadow(0 0 13px rgba(255,170,0,0.98)) drop-shadow(0 0 35px rgba(255,100,0,0.85)) drop-shadow(0 0 55px rgba(240,60,0,0.5));
-        opacity: 1;
-        transform: scaleY(1.04) scaleX(1.01) skewX(-1deg);
-        text-shadow: 0 0 30px rgba(255,210,0,0.75), 0 0 60px rgba(255,120,0,0.55), 0 0 85px rgba(230,70,0,0.35);
-      }
-      85%  {
-        filter: drop-shadow(0 0 6px rgba(255,120,0,0.7)) drop-shadow(0 0 15px rgba(220,55,0,0.45));
-        opacity: 0.91;
-        transform: scaleY(1) scaleX(1.01) skewX(-0.4deg);
-        text-shadow: 0 0 17px rgba(255,150,0,0.5), 0 0 34px rgba(220,65,0,0.3);
-      }
-      100% {
-        filter: drop-shadow(0 0 8px rgba(255,100,0,0.8)) drop-shadow(0 0 18px rgba(255,50,0,0.5)) drop-shadow(0 0 35px rgba(220,20,0,0.3));
-        opacity: 0.95;
-        transform: scaleY(1) scaleX(1) skewX(0deg);
-        text-shadow: 0 0 20px rgba(255,200,0,0.6), 0 0 40px rgba(255,100,0,0.4), 0 0 60px rgba(220,50,0,0.2);
-      }
     }
   </style>
 </head>
@@ -926,18 +752,13 @@
       <img src="logo-lockup.svg" alt="FENIX Cycling" class="nav-logo-icon" style="width:140px; height:auto;" />
     </a>
     <div class="nav-version">
-      <span>v1.0.0</span> · <span>07-08-2026</span>
+      <span>v2.0.0</span> · <span>redesign</span>
     </div>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#ebike">E-Bike</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="tel:+17140692502" class="nav-cta">Call Us</a></li>
-      <li>
-        <button id="lang-toggle" onclick="toggleLang()" aria-label="Toggle language">
-          <span id="lang-label">ES</span>
-        </button>
-      </li>
+      <li><a href="tel:+17146922502" class="nav-cta">Call Us</a></li>
     </ul>
   </div>
 </nav>
@@ -945,21 +766,15 @@
 <!-- ── HERO ─────────────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <canvas id="ember-canvas"></canvas>
   <div class="container hero-content">
-
-    <div class="fire-text-wrap">
-      <span class="fire-letter" style="--dur:2.1s;--delay:0.0s">F</span><span class="fire-letter" style="--dur:1.8s;--delay:0.15s">E</span><span class="fire-letter" style="--dur:2.4s;--delay:0.05s">N</span><span class="fire-letter" style="--dur:1.6s;--delay:0.22s">I</span><span class="fire-letter" style="--dur:2.2s;--delay:0.10s">X</span><span class="fire-letter space"> </span><span class="fire-letter" style="--dur:1.9s;--delay:0.18s">C</span><span class="fire-letter" style="--dur:2.3s;--delay:0.08s">Y</span><span class="fire-letter" style="--dur:1.7s;--delay:0.25s">C</span><span class="fire-letter" style="--dur:2.0s;--delay:0.12s">L</span><span class="fire-letter" style="--dur:2.5s;--delay:0.03s">I</span><span class="fire-letter" style="--dur:1.85s;--delay:0.20s">N</span><span class="fire-letter" style="--dur:2.15s;--delay:0.07s">G</span>
-    </div>
-
     <div class="hero-eyebrow">Yorba Linda, CA — Est. 2012</div>
-
+    <h1 class="hero-headline">FEN<span class="accent">I</span>X<br>CYCLING</h1>
     <p class="hero-sub">Honest. Reliable. Passionate.</p>
     <p class="hero-tagline">
       <strong>Riders from Riverside to the OC coast make the drive</strong> — because when you want it done right, you find the right mechanic.
     </p>
     <div class="hero-actions">
-      <a href="tel:+17140692502" class="btn-primary">Call the Shop</a>
+      <a href="tel:+17146922502" class="btn-primary">Call the Shop</a>
       <a href="#services" class="btn-secondary">View Services</a>
     </div>
     <div class="hero-stats">
@@ -999,8 +814,8 @@
   <div class="container">
     <div class="section-header">
       <span class="section-label">What We Do</span>
-      <h2 class="section-title">FULL-SERVICE<br>BIKE REPAIR</h2>
-      <p class="section-desc">From a flat fix to a complete overhaul — we handle it all. Every job gets the same attention, whether it's a kid's first bike or a race build.</p>
+      <h2>FULL-SERVICE BIKE REPAIR</h2>
+      <p>From a flat fix to a complete overhaul — we handle it all. Every job gets the same attention, whether it's a kid's first bike or a race build.</p>
     </div>
     <div class="services-grid">
 
@@ -1109,13 +924,12 @@
       <div class="ebike-badge">
         <span>⚡</span> E-Bike Specialists
       </div>
-      <h2 class="section-title">WE SERVICE<br>MOST MAJOR<br>E-BIKE BRANDS</h2>
-      <p class="section-desc" style="margin-top:16px;">E-bikes are a different animal. They need a mechanic who understands the electronics, not just the drivetrain. Ozzy does both.</p>
+      <h2>WE SERVICE MOST MAJOR E-BIKE BRANDS</h2>
+      <p style="margin-top:16px;">E-bikes are a different animal. They need a mechanic who understands the electronics, not just the drivetrain. Ozzy does both.</p>
       <ul class="ebike-checklist">
         <li><span class="check-dot"></span> Diagnostics</li>
         <li><span class="check-dot"></span> Motor Service</li>
         <li><span class="check-dot"></span> Battery Testing</li>
-        <li><span class="check-dot"></span> Electrical Repairs</li>
         <li><span class="check-dot"></span> Tune-Ups</li>
       </ul>
     </div>
@@ -1126,29 +940,35 @@
 </section>
 
 <!-- ── ABOUT (OUR STORY) ──────────────────────────────────────────────── -->
-<section id="about">
-  <video
-    class="about-bg-video"
-    autoplay
-    muted
-    loop
-    playsinline>
-    <source src="0708.mp4" type="video/mp4">
-  </video>
+<section id="about" style="background: linear-gradient(135deg, #FAFAF9 0%, #F5F3F0 100%);">
   <div class="container about-inner">
-    <div class="about-body">
-      <span class="section-label">Our Story</span>
-      <h2 class="section-title">BUILT ON<br>HONEST<br>SERVICE</h2>
-
-      <div style="margin-top: 32px;">
-        <p>FENIX Cycling has called Yorba Linda home since 2012 — on the edge of Anaheim Hills and Corona, where the roads meet the trails and serious riders live. <strong>Riders from Riverside to the OC coast make the drive,</strong> because when you want it done right, you find the right mechanic.</p>
-
-        <p><strong>Ozzy Hernandez</strong> didn't just grow up around bikes — he raced them professionally in the United States for five years. Cycling isn't a job at FENIX. It's a family tradition, and that heritage shows in every repair that leaves this shop.</p>
-
-        <p>Ozzy brings a racer's eye to every build and service — the kind of attention to detail that only comes from knowing exactly what's at stake when a bike fails on the road or trail.</p>
-
-        <p>No upsells you don't need. No mystery charges. Just the honest workmanship that earned us a <strong>5.0 on Google</strong> and <strong>4.8 on Yelp</strong> across 240+ combined reviews.</p>
+    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: start; margin-bottom: 48px;">
+      <!-- Ozzy's Picture & Bio -->
+      <div style="text-align: center;">
+        <img src="ozzy-headshot.jpg" alt="Ozzy Hernandez, Founder & Lead Mechanic" style="width: 100%; max-width: 280px; border-radius: 6px; margin-bottom: 20px;">
+        <h3 style="font-family: var(--ff-display); font-size: 1.3rem; color: var(--dark); margin-bottom: 8px; letter-spacing: 0.08em;">Ozzy Hernandez</h3>
+        <p style="color: var(--red); font-weight: 600; font-size: 0.95rem; margin-bottom: 16px;">Founder & Lead Mechanic</p>
+        <div style="background: var(--white); padding: 16px; border-radius: 6px; border-left: 3px solid var(--bronze);">
+          <p style="font-size: 0.9rem; color: var(--gray-md); line-height: 1.6; margin: 0;">
+            Former professional racer with 5 years of competition experience. Passion for precision, expert-level craftsmanship, and treating every bike like his own.
+          </p>
+        </div>
       </div>
+
+      <!-- Our Story -->
+      <div>
+        <span class="section-label">Our Story</span>
+        <h2 style="font-family: var(--ff-display); font-size: 2.2rem; color: var(--dark); margin-bottom: 24px; letter-spacing: 0.08em;">Built On<br>Honest Service</h2>
+
+        <div style="margin-top: 16px;">
+          <p>FENIX Cycling has called Yorba Linda home since 2012 — on the edge of Anaheim Hills and Corona, where the roads meet the trails and serious riders live. <strong>Riders from Riverside to the OC coast make the drive,</strong> because when you want it done right, you find the right mechanic.</p>
+
+          <p>Ozzy brings a racer's eye to every build and service — the kind of attention to detail that only comes from knowing exactly what's at stake when a bike fails on the road or trail.</p>
+
+          <p style="margin-top: 20px;">No upsells you don't need. No mystery charges. Just the honest workmanship that earned us a <strong style="color: var(--red);">5.0 on Google</strong> and <strong style="color: var(--red);">4.8 on Yelp</strong> across 240+ combined reviews.</p>
+        </div>
+      </div>
+    </div>
 
       <div class="about-slogan">
         <p><span>We ride. We wrench. We care.</span><br>And we treat every bike like our own.</p>
@@ -1195,7 +1015,122 @@
       <h2>READY TO<br>RIDE AGAIN?</h2>
       <p>Drop by the shop or give us a call. We'll take it from there.</p>
     </div>
-    <a href="tel:+17140692502" class="btn-white">Call the Shop</a>
+    <a href="tel:+17146922502" class="btn-white">Call the Shop</a>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ────────────────────────────────────────── -->
+<section style="padding: 100px 0; background: var(--light-bg);">
+  <div class="container" style="text-align: center;">
+    <span class="section-label">What Our Riders Say</span>
+    <h2 style="font-family: var(--ff-display); font-size: 2.2rem; color: var(--dark); margin-bottom: 48px; letter-spacing: 0.08em;">Trusted By<br>Serious Cyclists</h2>
+
+    <!-- Testimonial Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-bottom: 48px;">
+      <!-- Matthew W. -->
+      <div style="background: var(--white); padding: 32px; border-radius: 6px; border: 1px solid var(--border); text-align: left;">
+        <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+          <div style="font-size: 1.4rem;">⭐⭐⭐⭐⭐</div>
+        </div>
+        <p style="font-size: 0.95rem; color: var(--gray-md); line-height: 1.8; margin-bottom: 16px;">
+          "I've been going to Fenix since Ozzy first opened the shop. <strong>There's a reason for the wait — Ozzy is an artist and takes pride in doing things right.</strong> When Ozzy works on your bike, you can trust it's done correctly."
+        </p>
+        <div style="border-top: 1px solid var(--border); padding-top: 12px;">
+          <p style="font-size: 0.9rem; font-weight: 600; color: var(--dark); margin: 0;">Matthew W.</p>
+          <p style="font-size: 0.8rem; color: var(--gray-light); margin: 4px 0;">Anaheim, CA • 10+ photos</p>
+        </div>
+      </div>
+
+      <!-- Eduardo B. -->
+      <div style="background: var(--white); padding: 32px; border-radius: 6px; border: 1px solid var(--border); text-align: left;">
+        <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+          <div style="font-size: 1.4rem;">⭐⭐⭐⭐⭐</div>
+        </div>
+        <p style="font-size: 0.95rem; color: var(--gray-md); line-height: 1.8; margin-bottom: 16px;">
+          "I walked in with a nonworking rear derailleur, and <strong>they immediately helped get me back on the road</strong> riding again. The owner and staff are amazing."
+        </p>
+        <div style="border-top: 1px solid var(--border); padding-top: 12px;">
+          <p style="font-size: 0.9rem; font-weight: 600; color: var(--dark); margin: 0;">Eduardo B.</p>
+          <p style="font-size: 0.8rem; color: var(--gray-light); margin: 4px 0;">New York, NY • Recent</p>
+        </div>
+      </div>
+
+      <!-- Mark G. -->
+      <div style="background: var(--white); padding: 32px; border-radius: 6px; border: 1px solid var(--border); text-align: left;">
+        <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+          <div style="font-size: 1.4rem;">⭐⭐⭐⭐⭐</div>
+        </div>
+        <p style="font-size: 0.95rem; color: var(--gray-md); line-height: 1.8; margin-bottom: 16px;">
+          "Ozzy and team are exceptional. <strong>His expertise, attention to detail, honesty and integrity are priceless and rare</strong> in the predatory world of cycling companies."
+        </p>
+        <div style="border-top: 1px solid var(--border); padding-top: 12px;">
+          <p style="font-size: 0.9rem; font-weight: 600; color: var(--dark); margin: 0;">Mark G.</p>
+          <p style="font-size: 0.8rem; color: var(--gray-light); margin: 4px 0;">Anaheim, CA • 10+ photos</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Before/After Gallery -->
+    <div style="margin-top: 64px; padding-top: 64px; border-top: 2px solid var(--border);">
+      <h3 style="font-family: var(--ff-display); font-size: 1.6rem; color: var(--dark); margin-bottom: 12px; letter-spacing: 0.08em;">PRECISION AT WORK</h3>
+      <p style="color: var(--gray-light); margin-bottom: 48px; font-size: 1rem;">Every repair is handled with the same attention to detail. Here's what our precision looks like.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <!-- Wheel Truing -->
+        <div style="background: var(--white); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <div style="height: 200px; background: linear-gradient(135deg, #e0e0e0, #f5f5f5); display: flex; align-items: center; justify-content: center; color: var(--gray-light); font-size: 0.9rem;">Wheel Truing</div>
+          <div style="padding: 16px; border-top: 1px solid var(--border);">
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--dark); margin: 0;">Bent Spoke → Trued Wheel</p>
+            <p style="font-size: 0.85rem; color: var(--gray-light); margin: 6px 0;">Millimeter precision</p>
+          </div>
+        </div>
+
+        <!-- Drivetrain Service -->
+        <div style="background: var(--white); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <div style="height: 200px; background: linear-gradient(135deg, #e0e0e0, #f5f5f5); display: flex; align-items: center; justify-content: center; color: var(--gray-light); font-size: 0.9rem;">Drivetrain</div>
+          <div style="padding: 16px; border-top: 1px solid var(--border);">
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--dark); margin: 0;">Rusty Chain → Gleaming</p>
+            <p style="font-size: 0.85rem; color: var(--gray-light); margin: 6px 0;">Complete restoration</p>
+          </div>
+        </div>
+
+        <!-- Brake System -->
+        <div style="background: var(--white); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <div style="height: 200px; background: linear-gradient(135deg, #e0e0e0, #f5f5f5); display: flex; align-items: center; justify-content: center; color: var(--gray-light); font-size: 0.9rem;">Brake Work</div>
+          <div style="padding: 16px; border-top: 1px solid var(--border);">
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--dark); margin: 0;">Misaligned → Perfectly Tuned</p>
+            <p style="font-size: 0.85rem; color: var(--gray-light); margin: 6px 0;">Responsive & reliable</p>
+          </div>
+        </div>
+
+        <!-- Cable Work -->
+        <div style="background: var(--white); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <div style="height: 200px; background: linear-gradient(135deg, #e0e0e0, #f5f5f5); display: flex; align-items: center; justify-content: center; color: var(--gray-light); font-size: 0.9rem;">Cable Work</div>
+          <div style="padding: 16px; border-top: 1px solid var(--border);">
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--dark); margin: 0;">Frayed Cable → Clean Install</p>
+            <p style="font-size: 0.85rem; color: var(--gray-light); margin: 6px 0;">Full system service</p>
+          </div>
+        </div>
+
+        <!-- Custom Builds -->
+        <div style="background: var(--white); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <div style="height: 200px; background: linear-gradient(135deg, #e0e0e0, #f5f5f5); display: flex; align-items: center; justify-content: center; color: var(--gray-light); font-size: 0.9rem;">Custom Builds</div>
+          <div style="padding: 16px; border-top: 1px solid var(--border);">
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--dark); margin: 0;">Components → Dream Build</p>
+            <p style="font-size: 0.85rem; color: var(--gray-light); margin: 6px 0;">Bespoke assembly</p>
+          </div>
+        </div>
+
+        <!-- E-Bike Service -->
+        <div style="background: var(--white); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <div style="height: 200px; background: linear-gradient(135deg, #e0e0e0, #f5f5f5); display: flex; align-items: center; justify-content: center; color: var(--gray-light); font-size: 0.9rem;">E-Bike Service</div>
+          <div style="padding: 16px; border-top: 1px solid var(--border);">
+            <p style="font-size: 0.9rem; font-weight: 600; color: var(--dark); margin: 0;">Diagnostic → Full Service</p>
+            <p style="font-size: 0.85rem; color: var(--gray-light); margin: 6px 0;">Battery to drivetrain</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1220,142 +1155,34 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Visit</h5>
+        <h5>Legal</h5>
         <ul>
-          <li>Yorba Linda, CA</li>
-          <li><a href="tel:+17140692502">Call Us</a></li>
-          <li>fenixcycling.cc</li>
-          <li>@FenixCycling</li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact Us</h5>
+        <ul>
+          <li style="font-weight: 600; color: var(--red); margin-bottom: 12px;">Bryant Ranch Center</li>
+          <li><a href="https://maps.google.com/?q=23681+E+La+Palma+Ave+Suite+B+Yorba+Linda+CA+92887" style="color: inherit; text-decoration: none;" target="_blank">23681 E La Palma Ave B<br>Yorba Linda, CA 92887</a></li>
+          <li style="margin-top: 16px; font-size: 0.85rem;">Text us at <a href="sms:+17143330401" style="color: var(--red); font-weight: 600;">714 333 0401</a></li>
+          <li style="font-size: 0.85rem;">Call us at <a href="tel:+17146922502" style="color: var(--red); font-weight: 600;">(714) 692-2502</a></li>
+          <li style="font-size: 0.85rem;">Email us at <a href="mailto:Service@fenixcycling.cc" style="color: var(--red); font-weight: 600;">Service@fenixcycling.cc</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 FENIX Cycling. All rights reserved.</p>
       <div class="footer-motto">Ride More. Worry Less. We've Got Your Back.</div>
+      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+        <a href="privacy-policy.html" style="color: var(--gray-light); font-size: 0.85rem; margin: 0 12px; text-decoration: none;">Privacy Policy</a>
+        <span style="color: var(--gray-light); font-size: 0.85rem;">•</span>
+        <a href="terms-and-conditions.html" style="color: var(--gray-light); font-size: 0.85rem; margin: 0 12px; text-decoration: none;">Terms & Conditions</a>
+      </div>
     </div>
   </div>
 </footer>
-
-<!-- ── EMBER PARTICLES ─────────────────────────────────────── -->
-<script>
-  (function() {
-    const canvas = document.getElementById('ember-canvas');
-    const ctx = canvas.getContext('2d');
-    let W, H, particles = [];
-    const mouse = { x: -999, y: -999 };
-    const REPEL_RADIUS = 80;
-    const REPEL_FORCE  = 3.5;
-
-    function resize() {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = document.getElementById('hero').offsetHeight;
-    }
-
-    // Track mouse over hero
-    canvas.addEventListener('mousemove', e => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    });
-    canvas.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
-
-    function Ember(forceBottom) {
-      this.forceBottom = forceBottom || false;
-      this.reset();
-    }
-    Ember.prototype.reset = function() {
-      const bottomZone = this.forceBottom || Math.random() < 0.7;
-      this.x = Math.random() * W;
-      this.y = H + Math.random() * 12;
-      this.size = bottomZone
-        ? Math.random() * 4 + 1.5
-        : Math.random() * 2 + 0.4;
-      this.speedY = bottomZone
-        ? Math.random() * 2.2 + 0.8
-        : Math.random() * 1.0 + 0.3;
-      this.speedX = (Math.random() - 0.5) * (bottomZone ? 1.2 : 0.5);
-      this.vx = 0; // repulsion velocity
-      this.vy = 0;
-      this.life = 0;
-      this.maxLife = Math.random() * 260 + 100;
-      const hue = Math.floor(Math.random() * 40);
-      const light = Math.floor(Math.random() * 20 + 55);
-      this.color = `hsl(${hue}, 100%, ${light}%)`;
-      this.flare = Math.random() < 0.12;
-    };
-    Ember.prototype.update = function() {
-      // Mouse repulsion
-      const dx = this.x - mouse.x;
-      const dy = this.y - mouse.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < REPEL_RADIUS && dist > 0) {
-        const force = (REPEL_RADIUS - dist) / REPEL_RADIUS * REPEL_FORCE;
-        this.vx += (dx / dist) * force;
-        this.vy += (dy / dist) * force;
-      }
-      // Dampen repulsion velocity over time
-      this.vx *= 0.88;
-      this.vy *= 0.88;
-
-      this.x += this.speedX + Math.sin(this.life * 0.035) * 0.45 + this.vx;
-      this.y -= this.speedY - this.vy;
-      this.life++;
-      const progress = this.life / this.maxLife;
-      if (progress < 0.15) {
-        this.alpha = (progress / 0.15) * (this.flare ? 0.85 : 0.55);
-      } else {
-        this.alpha = (1 - progress) * (this.flare ? 0.85 : 0.55);
-      }
-      if (this.life >= this.maxLife) this.reset();
-    };
-    Ember.prototype.draw = function() {
-      ctx.globalAlpha = this.alpha;
-      if (this.flare && this.size > 2) {
-        const grd = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2.5);
-        grd.addColorStop(0, this.color);
-        grd.addColorStop(1, 'transparent');
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size * 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = grd;
-        ctx.fill();
-      }
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = this.color;
-      ctx.fill();
-    };
-
-    function init() {
-      resize();
-      // 300 total: 220 bottom-zone + 80 free-floating
-      particles = [
-        ...Array.from({ length: 220 }, () => {
-          const e = new Ember(true);
-          e.y = H - Math.random() * (H * 0.35);
-          e.life = Math.floor(Math.random() * e.maxLife);
-          return e;
-        }),
-        ...Array.from({ length: 80 }, () => {
-          const e = new Ember(false);
-          e.y = Math.random() * H;
-          e.life = Math.floor(Math.random() * e.maxLife);
-          return e;
-        })
-      ];
-    }
-
-    function loop() {
-      ctx.clearRect(0, 0, W, H);
-      ctx.globalAlpha = 1;
-      particles.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(loop);
-    }
-
-    window.addEventListener('resize', resize);
-    init();
-    loop();
-  })();
-</script>
 
 <!-- ── REVIEWS CAROUSEL AUTO-ADVANCE ──────────────────────────────── -->
 <script>
@@ -1367,15 +1194,7 @@
     document.getElementById('reviews-track').style.transform = `translateX(-${idx * 100}%)`;
   }
 
-  setInterval(() => goTo((current + 1) % TOTAL), 4800);
-</script>
-
-<!-- ── TIDIO LIVE CHAT ─────────────────────────────────────── -->
-<script src="//code.tidio.co/v0uumteegiz9ukmarmp06luufcz6qajo.js" async></script>
-<script>
-  window.addEventListener('beforeunload', function () {
-    localStorage.removeItem('tidio_state_v0uumteegiz9ukmarmp06luufcz6qajo');
-  });
+  setInterval(() => goTo((current + 1) % TOTAL), 5500);
 </script>
 
 </body>
